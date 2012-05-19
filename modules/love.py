@@ -91,7 +91,7 @@ def loves(lovebot,input):
 	if len(names)>0:
 		for name in names:
 			msg += "%s, "%(name)
-		msg+= " each love %s, %s."%(obj,input.nick)
+		msg+= " all love %s."%(obj,input.nick)
 	else:
 		msg = "no one loves %s, %s"%(obj,input.nick)
 	lovebot.say(msg)
