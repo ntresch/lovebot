@@ -120,8 +120,9 @@ def editlovelist(lovebot,input):
 
 editlovelist.rule = r'!unlove (.+)'
 
-import random
+
 def advice(lovebot,input):
+	import random
 	c = Connection()
 	db = c.lovers_data
 	advice = db.advice
