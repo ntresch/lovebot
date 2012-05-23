@@ -10,15 +10,7 @@ are given by prefixing the text by the bot name followed by a colon.
 
 
 
-#--------------------------------------------------------------------
-# Pinky's exclamations.
 
-exclamations = \
-["Narf!",
- "Zort!",
- "Nogg!",
- "Poit!",
- "Oooo!"]
 
 
 #--------------------------------------------------------------------
@@ -111,10 +103,3 @@ def takeOverTheWorld(lovebot, input):
 	lovebot.say(ponderings[recordNum])
 
 takeOverTheWorld.rule = r'.*are you (:?thinking|pondering) what I\'m thinking\?.*'
-
-def exclaim(lovebot,input):
-	import random
-	mRnd = len(exclamations)-1
-	recordNum = random.randint(0, mRnd)
-	lovebot.say(exclamations[recordNum])
-exclaim.rule = r'^.+\!.*$'
