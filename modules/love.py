@@ -132,3 +132,35 @@ def advice(lovebot,input):
 	lovebot.say('%s, %s'%(input.nick,a['aText']))
 
 advice.commands = ['advice']
+
+def notice_karma(lovebot,input):
+	if input.nick == input.group(1):
+		lovebot.say("You cannot karmically judge yourself.")
+		return
+	c = Connection()
+	db = c.lovers_data
+	loversKarma = db.lovers_karma
+	lover = loversKarma.find_one({"nickname":input.group(1)})
+	if not lover:
+		lover = {"nickname":input.group(1),"karma":0}
+		
+	if input.group(2) == "++":
+		lover['karma'] += 1
+	else:
+		lover['karma'] -= 1
+ 	loversKarma.save(lover)
+
+
+notice_karma.rule = r'(.+)(\+\+|\-\-)'
+
+def karma(lovebot,input):
+	c = Connection()
+	db = c.lovers_data
+	loversKarma = db.lovers_karma
+	lover = loversKarma.find_one({"nickname":input.group(1)})
+	if lover:
+		lovebot.say(lover['nickname']+" has a karmic rating of "+str(lover['karma'])+".")
+	else:
+		lovebot.say("What you asked about has no karmic weight.  It is insignificant next to the power of the force.")
+karma.rule = r'!karma (.+)'
+
