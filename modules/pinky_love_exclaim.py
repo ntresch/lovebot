@@ -7,7 +7,14 @@ exclamations = \
  "Zort!",
  "Nogg!",
  "Poit!",
- "Oooo!"]
+ "Oooo!",
+ "Ooooh, a button!",
+ "God damn it!",
+ "Fuck!",
+ "Shit, piss, hell, fuck, cocksucker, motherfucker!",
+ "Nobody messes with the Jesus!",
+ "It ain't gonna suck itself, bitch!",
+ "It ain't gonna lick itself, bitch!"]
 
 
 def exclaim(lovebot,input):
