@@ -1,4 +1,6 @@
 from pymongo import Connection
+import random
+
 
 
 def note_love(lovebot, input):
@@ -109,8 +111,13 @@ def editlovelist(lovebot,input):
 	if not lover:
 		lovebot.say("You dont love anything, %s." % input.nick)
 		return
-	obj = input.group(1).strip().lower()
-	
+	match1 = input.group(1)
+	match2 = input.group(2)
+	if (match1):
+		obj = input.group(1).strip().lower()
+	else:
+		obj = input.group(2).strip().lower()
+
 	if obj in lover['lovelist']:
 		lover['lovelist'].remove(obj)
 		lovebot.say("I guess you didn't love %s after all, %s!" % (obj,input.nick))
@@ -118,11 +125,10 @@ def editlovelist(lovebot,input):
 		lovebot.say("You didn't love %s in the first place, %s!"% (obj,input.nick))
 	lovers.save(lover)
 
-editlovelist.rule = r'!unlove (.+)'
+editlovelist.rule = r'(?:!unlove (.+)|</3 (.+))'
 
 
 def advice(lovebot,input):
-	import random
 	c = Connection()
 	db = c.lovers_data
 	advice = db.advice
@@ -164,3 +170,21 @@ def karma(lovebot,input):
 		lovebot.say("What you asked about has no karmic weight.  It is insignificant next to the power of the force.")
 karma.rule = r'!karma (.+)'
 
+
+def botsnack(lovebot,input):
+	responses = \
+        [\
+           '/me greedily scarfs the delicious treat',\
+           '/me sniffs the treat a moment then devours it', \
+           '/me doesn\'t appear very hungry and eats the treat slowly',\
+	   '/me licks the surface of the snack repeatedly until the treat appears to be getting soft and mushy, at which time he pops it into his mouth',\
+           "I\'m not hungie, %s, but thank you!"%(input.nick),\
+           "/me eats the delicious morsel and looks longingly at %s for another"%(input.nick),\
+        ]
+	mRnd =len(responses)
+        recordNum = random.randint(1, mRnd)
+	recordNum = recordNum-1
+        r = responses[recordNum]
+        lovebot.say(r)
+botsnack.rule = r'!botsnack'
+	
